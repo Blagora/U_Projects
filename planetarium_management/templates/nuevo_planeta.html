@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Nuevo Planeta</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="POST" class="needs-validation" novalidate>
+            {{ form.hidden_tag() }}
+            
+            <div class="mb-3">
+                {{ form.nombre.label(class="form-label") }}
+                {{ form.nombre(class="form-control", required=True) }}
+                {% if form.nombre.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.nombre.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.distancia_a_sol.label(class="form-label") }}
+                {{ form.distancia_a_sol(class="form-control", required=True, step="0.01") }}
+                {% if form.distancia_a_sol.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.distancia_a_sol.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Unidades Astronómicas (UA).<br>
+                Rango permitido: 0.3 a 31.0 UA</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.inclinacion_orb.label(class="form-label") }}
+                {{ form.inclinacion_orb(class="form-control", required=True, step="0.01") }}
+                {% if form.inclinacion_orb.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.inclinacion_orb.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Grados (°)</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.periodo_orbital.label(class="form-label") }}
+                {{ form.periodo_orbital(class="form-control", required=True, step="0.01") }}
+                {% if form.periodo_orbital.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.periodo_orbital.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Días</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.velocidad_orb.label(class="form-label") }}
+                {{ form.velocidad_orb(class="form-control", required=True, step="0.01") }}
+                {% if form.velocidad_orb.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.velocidad_orb.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Kilómetros por segundo (km/s)</div>
+            </div>
+
+            <div class="d-grid">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

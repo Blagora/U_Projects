@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Planetas del Sistema</h1>
+
+<div class="row">
+    {% for planeta in planetas %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ planeta.nombre }}</h5>
+                <p class="card-text">
+                    <strong>Distancia al Sol:</strong> {{ "%.2f"|format(planeta.distancia_a_sol) }} UA<br>
+                    <strong>Periodo Orbital:</strong> {{ "%.2f"|format(planeta.periodo_orbital) }} días<br>
+                    <strong>Velocidad Orbital:</strong> {{ "%.2f"|format(planeta.velocidad_orb) }} km/s
+                </p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('ver_planeta', id_planeta=planeta.id_planeta) }}" class="btn btn-primary">
+                        Ver Detalles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

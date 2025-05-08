@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">Auditoría del Sistema Planetario</h2>
+                </div>
+                <div class="card-body">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <form method="POST" class="form-inline">
+                                {{ form.hidden_tag() }}
+                                <div class="form-group mr-3">
+                                    {{ form.entidad(class="form-control", style="width: 200px") }}
+                                    {% if form.entidad.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.entidad.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group mr-3">
+                                    {{ form.accion(class="form-control", style="width: 200px") }}
+                                    {% if form.accion.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.accion.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group mr-3">
+                                    {{ form.fecha_inicio(class="form-control", style="width: 150px") }}
+                                    {% if form.fecha_inicio.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.fecha_inicio.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group mr-3">
+                                    {{ form.fecha_fin(class="form-control", style="width: 150px") }}
+                                    {% if form.fecha_fin.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.fecha_fin.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn btn-primary") }}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ID Entidad</th>
+                                    <th>Entidad</th>
+                                    <th>Acción</th>
+                                    <th>Datos Anteriores</th>
+                                    <th>Datos Nuevos</th>
+                                    <th>Fecha</th>
+                                    <th>Usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for registro in auditoria %}
+                                <tr>
+                                    <td>{{ registro.id }}</td>
+                                    <td>{{ registro.id_entidad }}</td>
+                                    <td>{{ registro.entidad }}</td>
+                                    <td>{{ registro.accion }}</td>
+                                    <td>{{ registro.datos_anteriores }}</td>
+                                    <td>{{ registro.datos_nuevos }}</td>
+                                    <td>{{ registro.fecha_modificacion }}</td>
+                                    <td>{{ registro.usuario_modificacion }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

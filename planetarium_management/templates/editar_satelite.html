@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Editar Satélite</h2>
+    <form method="POST" action="{{ url_for('editar_satelite', id_satelite=satelite.id_satelite) }}">
+        {{ form.hidden_tag() }}
+        
+        <input type="hidden" name="id_planeta" value="{{ satelite.id_planeta }}">
+        
+        <div class="mb-3">
+            {{ form.nombre.label(class="form-label") }}
+            {{ form.nombre(class="form-control", required=True) }}
+            {% if form.nombre.errors %}
+                {% for error in form.nombre.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.excentricidad.label(class="form-label") }}
+            {{ form.excentricidad(class="form-control", required=True, type="number", step="0.0001") }}
+            {% if form.excentricidad.errors %}
+                {% for error in form.excentricidad.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-text">Valor entre 0 y 1</div>
+        </div>
+
+        <div class="mb-3">
+            {{ form.periodo_orb.label(class="form-label") }}
+            {{ form.periodo_orb(class="form-control", required=True, type="number", step="0.01") }}
+            {% if form.periodo_orb.errors %}
+                {% for error in form.periodo_orb.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-text">Días</div>
+        </div>
+
+        <div class="mb-3">
+            {{ form.inclinacion_orb.label(class="form-label") }}
+            {{ form.inclinacion_orb(class="form-control", required=True, type="number", step="0.01") }}
+            {% if form.inclinacion_orb.errors %}
+                {% for error in form.inclinacion_orb.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-text">Grados (°)</div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="{{ url_for('ver_planeta', id_planeta=satelite.id_planeta) }}" class="btn btn-secondary">Cancelar</a>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

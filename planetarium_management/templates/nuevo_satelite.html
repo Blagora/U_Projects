@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Nuevo Satélite para {{ planeta.nombre }}</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="POST" class="needs-validation" novalidate>
+            {{ form.hidden_tag() }}
+            
+            <div class="mb-3">
+                {{ form.nombre.label(class="form-label") }}
+                {{ form.nombre(class="form-control", required=True) }}
+                {% if form.nombre.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.nombre.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Nombre del satélite (máximo 100 caracteres)</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.excentricidad.label(class="form-label") }}
+                {{ form.excentricidad(class="form-control", required=True, step="0.0001") }}
+                {% if form.excentricidad.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.excentricidad.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Valor entre 0 y 1</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.periodo_orb.label(class="form-label") }}
+                {{ form.periodo_orb(class="form-control", required=True, step="0.01") }}
+                {% if form.periodo_orb.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.periodo_orb.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Días (debe ser menor al periodo orbital del planeta)</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.inclinacion_orb.label(class="form-label") }}
+                {{ form.inclinacion_orb(class="form-control", required=True, step="0.01") }}
+                {% if form.inclinacion_orb.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.inclinacion_orb.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-text">Grados (°)</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.id_planeta.label(class="form-label") }}
+                {{ form.id_planeta(class="form-control", readonly=True, value=planeta.id_planeta) }}
+            </div>
+
+            <div class="d-grid">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
